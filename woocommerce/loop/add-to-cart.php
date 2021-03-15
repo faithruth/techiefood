@@ -43,6 +43,8 @@ if ( 'variable' === $product->get_type() ) {
 		  </div>
 		  <div class="modal-body">
 		  	<form action="" id="<?php echo $product->slug; ?>" method="get">
+			  <input name="product_id>" value="<?php echo $product->get_id(); ?>" id="product_id" type="hidden" />
+
 				<?php
 					$default_attributes   = $product->get_default_attributes();
 					$available_attributes = $product->get_available_variations();

@@ -3,23 +3,32 @@ jQuery(document).ready(function($){
         e.preventDefault();
         console.log('Form Submitted');
 
-        var formSelected = e.currentTarget.parentElement;
-
-        var values = Array.from( document.querySelectorAll( 'input[type=checkbox]:checked' )).map(item=>item.value);
-
-        values.forEach(value => {
-        });
+        let formSelected = e.currentTarget.parentElement;
         
-        $.ajax({
-            url: 'http://localhost:10013/?add-to-cart=' + value,
-            type: 'post',
-            success: function(res){
-                console.log(res);
-            },
-            error: function(err){
-                console.log(err);
-            },
+        let values = [];
+        var product_id = $('input[type=hidden]').val();
+        values = Array.from( document.querySelectorAll( 'input[type=checkbox]:checked' )).map(item=>item.value);
+            
+        values.forEach(value => {
+            $.ajax({
+                url: ajax_object.ajax_url,
+                data: {
+                    'action': 'food_ajax_add_to_cart',
+                    'product_id': product_id,
+                    'variation_id': value
+                },
+                type: 'post',
+                success: function(res){
+                    console.log('success');
+                },
+                error: function(err){
+                    console.log(err);
+                },
+            });
         });
+
+        //formSelected.reset();
+        //window.location.href = '/';
 
         // console.log(formSelected);
         // console.log(values);
